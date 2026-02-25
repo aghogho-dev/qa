@@ -1,0 +1,35 @@
+# --- Credentials & Environment ---
+.env
+.env.local
+.env.api
+.env_api
+.env*
+auth_state.json
+
+# --- Python & Dependencies ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+       
+
+# --- Playwright & Testing Artifacts ---
+.pytest_cache/
+*.log
+task2_report.html
+
+# --- System & IDE ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- IMAP/Email Temp Files ---
+# If your script saves email attachments or temp html files
+*.eml
+temp_otp.html

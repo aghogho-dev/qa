@@ -1,0 +1,85 @@
+scopes_dict = {
+    # --- VERIFICATION ---
+    "Bvn Initialize": "adjutor-bvn-initialize",
+    "Bvn Complete": "adjutor-bvn-complete",
+    "Bvn Accounts Initialize": "adjutor-bvn-accounts-initialize",
+    "Bvn Accounts Complete": "adjutor-bvn-accounts-complete",
+    "Bvn Verification": "adjutor-bvn-verification",
+    "Name Inquiry": "adjutor-name-inquiry",
+    "Name Inquiry Bvn": "adjutor-name-inquiry-bvn",
+    "Karma Lookup": "adjutor-karma-lookup",
+    "Image Compare": "adjutor-image-compare",
+    "Ecosystem Lookup": "adjutor-ecosystem-lookup",
+    "NIN Verification": "adjutor-nin-verification",
+
+    # --- CREDIT BUREAUS ---
+    "CRC": "adjutor-crc",
+    "Firstcentral": "adjutor-firstcentral",
+
+    # --- DECISIONING ---
+    "Oraculi Scoring": "adjutor-oraculi-scoring",
+
+    # --- OPERATIONAL SERVICES ---
+    "Bank List": "adjutor-bank-list",
+    "States List": "adjutor-states-list",
+    "LGAs List": "adjutor-lgas-list",
+
+    # --- DIRECT DEBIT ---
+    "Direct Debit": "adjutor-direct-debit",
+    "Direct Debit List Banks": "adjutor-direct-debit-list-banks",
+    "Direct Debit Account Lookup": "adjutor-direct-debit-account-lookup",
+    "Direct Debit Balance Lookup": "adjutor-direct-debit-balance-lookup",
+    "Direct Debit Create Mandate": "adjutor-direct-debit-create-mandate",
+    "Direct Debit List Mandates": "adjutor-direct-debit-list-mandates",
+    "Direct Debit Update Mandate": "adjutor-direct-debit-update-mandate",
+    "Direct Debit Debit Mandate": "adjutor-direct-debit-debit-mandate",
+    "Direct Debit List Transactions": "adjutor-direct-debit-list-transactions",
+    "Direct Debit Create Biller": "adjutor-direct-debit-create-biller",
+    "Direct Debit List Billers": "adjutor-direct-debit-list-billers",
+    "Direct Debit Mandate Debit": "adjutor-direct-debit-mandate-debit",
+    "Direct Debit Generate Form": "adjutor-direct-debit-generate-form",
+
+    # --- KOLO ---
+    "Kolo Auth": "adjutor-kolo-auth",
+    "Kolo View Transactions": "adjutor-kolo-view-transactions",
+    "Kolo Update Transactions": "adjutor-kolo-update-transactions",
+    "Kolo View Profile": "adjutor-kolo-view-profile",
+    "Kolo View Accounts": "adjutor-kolo-view-accounts",
+    "Kolo Add Account": "adjutor-kolo-add-account",
+    "Kolo Sync Account": "adjutor-kolo-sync-account",
+    "Kolo Update Account": "adjutor-kolo-update-account",
+    "Kolo Delete Account": "adjutor-kolo-delete-account",
+
+    # --- CORE SERVICES ---
+    "Create Customer": "adjutor-core-services-create-customer",
+    "Activate Customer": "adjutor-core-services-activate-customer",
+    "Get Customers": "adjutor-core-services-get-customers",
+    "Get Single Customer": "adjutor-core-services-get-customer",
+    "Update Customer": "adjutor-core-services-update-customer",
+    "Get Customer Bank Accounts": "adjutor-core-services-get-customer-bank-accounts",
+    "Add Customer Bank Accounts": "adjutor-core-services-add-customer-bank-accounts",
+    "Delete Customer Bank Account": "adjutor-core-services-delete-customer-bank-account",
+    "Get Customer Direct Debit Mandates": "adjutor-core-services-get-customer-direct-debit-mandates",
+    "Add Customer Direct Debit Mandate": "adjutor-core-services-add-customer-direct-debit-mandate",
+    "Activate Customer Direct Debit Mandates": "adjutor-core-services-activate-customer-direct-debit-mandate",
+    "Deactivate Customer Direct Debit Mandate": "adjutor-core-services-deactivate-customer-direct-debit-mandate",
+    "Cancel Customer Direct Debit Mandates": "adjutor-core-services-cancel-customer-direct-debit-mandate",
+    "Get Loan Products": "adjutor-core-services-get-loan-products",
+    "Score Loan": "adjutor-core-services-score-loan",
+    "Get Customer Loan": "adjutor-core-services-get-customer-loan",
+    "Get Customer Loans": "adjutor-core-services-get-customer-loans",
+    "Book Loan": "adjutor-core-services-book-loan",
+    "Approve Loan": "adjutor-core-services-approve-loan",
+    "Repay Customer Loan": "adjutor-core-services-repay-customer-loan",
+    "Get Customer Cards": "adjutor-core-services-get-customer-cards",
+    "Deactivate Customer Card": "adjutor-core-services-deactivate-customer-card",
+    "Delete Customer Card": "adjutor-core-services-delete-customer-card",
+    "Get Customer Wallets": "adjutor-core-services-get-customer-wallets",
+    "Get Customer Wallet Transactions": "adjutor-core-services-get-customer-wallet-transactions",
+    "Transfer To Customer Wallet": "adjutor-core-services-transfer-to-customer-wallet",
+    "Get Customer Logs": "adjutor-core-services-get-customer-logs",
+    "Get Offers": "adjutor-core-services-get-loan-offers",
+    "Onboard Customer": "adjutor-core-services-onboard-customer",
+    "Create Loan Request": "adjutor-core-services-loan-request",
+}
+

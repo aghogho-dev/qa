@@ -1,0 +1,403 @@
+@token   = {{$dotenv API_KEY .env}}
+@baseUrl = {{$dotenv BASE_API_URL .env}}
+@bvn = 12345678901
+
+# Direct Debit - GET ALL BANK
+
+## Positive Case
+GET {{baseUrl}}/direct-debit/banks?limit=50&page=1&sort_dir=ASC
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+## Invalid Limit
+GET {{baseUrl}}/direct-debit/banks?limit=abc&page=1&sort_dir=ASC
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+## Negative Limit
+GET {{baseUrl}}/direct-debit/banks?limit=-1&page=1&sort_dir=ASC
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+# Direct Debit - GET DETAILS BANK
+
+## Positive Case
+GET {{baseUrl}}/direct-debit/banks/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+## Edge Case
+GET {{baseUrl}}/direct-debit/banks/0
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+## Invalid bank_id
+GET {{baseUrl}}/direct-debit/banks/a
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+## Negative Case
+GET {{baseUrl}}/direct-debit/banks/-1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+###
+
+# Direct Debit - Verify Bank Account Number
+
+## Positive Case
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "account_number": "2150302690",
+    "bank_code": "057"
+}
+
+### Missing account number
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "bank_code": "057"
+}
+
+### Missing bank code
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "account_number": "2150302690"
+}
+
+
+### Invalid account number format
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "account_number": "ABC1234567",
+    "bank_code": "057"
+}
+
+
+### account number too short
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "account_number": "123456",
+    "bank_code": "057"
+}
+
+### account number too long
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+{
+    "account_number": "123456789012345",
+    "bank_code": "057"
+}
+
+
+### negative acccount number
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+{
+    "account_number": "-1234567890",
+    "bank_code": "057"
+}
+
+### missing acccount number and bankcode
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+
+### SQL injection attempt bank code
+POST {{baseUrl}}/direct-debit/banks/account-lookup
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "account_number": "1234567890", 
+  "bank_code": "057' OR 1=1 --"
+}
+
+### VERIFICATION - Initialize BVN Consent
+
+### Positive Contact
+POST {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "contact": "08068888878"
+}
+
+### Negative Contact
+POST {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "contact": "-08068888878"
+}
+
+### No Contact
+POST {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "contact": ""
+}
+
+### Invalid Contact
+POST {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "contact": "abcdefghij@"
+}
+
+### Invalid BVN Length
+POST {{baseUrl}}/verification/bvn/111
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "contact": "08068888878"
+}
+
+### VERIFICATION - Complete BVN
+
+### Correct OTP
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "otp": "123456"
+}
+
+### Short OTP
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "otp": "1234"
+}
+
+### Long OTP
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "otp": "123456789"
+}
+
+### Invalid OTP Letters
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "otp": "abcdef"
+}
+
+### Invalid OTP Letters Short
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "otp": "abc"
+}
+
+### Negative OTP
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "otp": "-123456"
+}
+
+### Missing OTP
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Null OTP
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "otp": null
+}
+
+### SQL Injection
+PUT {{baseUrl}}/verification/bvn/{{bvn}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "otp": "123456' OR 1=1 --"
+}
+
+
+### CREDIT BUREAU - Get Credit Report from CRC Credit Bureau
+
+### Positive Case
+GET {{baseUrl}}/creditbureaus/crc/{{bvn}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Negative Case
+GET {{baseUrl}}/creditbureaus/crc/-1234567890
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Edge Case (All Zeros)
+GET {{baseUrl}}/creditbureaus/crc/00000000000
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Invalid BVN Letters
+GET {{baseUrl}}/creditbureaus/crc/abcdefghijk
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### BVN Short
+GET {{baseUrl}}/creditbureaus/crc/12345678
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### BVN Long
+GET {{baseUrl}}/creditbureaus/crc/123456789012345
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### CREDIT BUREAU - Get Credit Report from FirstCentral Bureau
+
+### Positive Case
+GET {{baseUrl}}/creditbureaus/firstcentral/{{bvn}}
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Negative Case
+GET {{baseUrl}}/creditbureaus/firstcentral/-1234567890
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Edge Case (All Zeros)
+GET {{baseUrl}}/creditbureaus/firstcentral/00000000000
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Invalid BVN Letters
+GET {{baseUrl}}/creditbureaus/firstcentral/abcdefghijk
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### BVN Short
+GET {{baseUrl}}/creditbureaus/firstcentral/12345678
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### BVN Long
+GET {{baseUrl}}/creditbureaus/firstcentral/123456789012345
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
+### DECISIONING - Get Decision Models
+GET {{baseUrl}}/decisioning/models
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### DECISIONING - Get Decision Model Details
+GET {{baseUrl}}/decisioning/models/1/settings
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### DECISIONING - Oraculi Borrower Scoring
+
+## With Payload
+POST {{baseUrl}}/decisioning/models/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+{
+    "gender": "Female",
+    "marital_status": "Single",
+    "age": "21",
+    "location": "lagos",
+    "no_of_dependent": "0",
+    "type_of_residence": "Rented Apartment",
+    "educational_attainment": "BSc, HND and Other Equivalent",
+    "employment_status": "Employed",
+    "sector_of_employment": "Other Financial",
+    "monthly_net_income": "100,000 - 199,999",
+    "employer_category": "Private Company",
+    "bvn": "22536051111",
+    "phone_number": "08012345678",
+    "total_years_of_experience": 5,
+    "time_with_current_employer": 2,
+    "previous_lendsqr_loans": 3,
+    "phone": "07062561111",
+    "bvn_phone": "07062561111",
+    "office_email": "adojohnsule@lendsqr.com",
+    "personal_email": "adojohnsule@lendsqr.com",
+    "amount": 10000
+}
+
+### With Empty Payload
+POST {{baseUrl}}/decisioning/models/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+{}

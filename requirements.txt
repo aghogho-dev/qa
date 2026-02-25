@@ -1,0 +1,8 @@
+playwright
+pytest
+python-dotenv
+pytest-playwright
+imap-tools
+pytz
+beautifulsoup4
+pytest-html
