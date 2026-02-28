@@ -1,6 +1,7 @@
 "# Quality Assurance" 
 
 ### Environmental Variables Required 
+
 BASE_URL
 
 NAME
